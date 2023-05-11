@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Banking System</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background-color: #023e8a;
+        color: #fff;
+      }
+      .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+      nav a {
+        color: #fff;
+        text-decoration: none;
+        margin-left: 20px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease 0s;
+      }
+      nav a:hover {
+        color: #fb8500;
+      }
+      section {
+        height: 100vh;
+        background-image: url('https://images.unsplash.com/photo-1584468859428-ebb873a25fae?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzN8fGJhbmslMjBzaXRlJTIwdGhhdCUyMGRldmVsb3BtZW50fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80');
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      h1 {
+        color: #023e8a;
+        font-size: 3rem;
+        margin-bottom: 30px;
+        text-align: center;
+        text-shadow: 2px 2px #fff;
+        text-transform: uppercase;
+      }
+      .btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 15px 30px;
+        font-size: 1.2rem;
+        text-align: center;
+        text-transform: uppercase;
+        text-decoration: none;
+        background-color: #fb8500;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        cursor: pointer;
+        transition: all 0.3s ease 0s;
+      }
+      .btn:hover {
+        background-color: #fff;
+        color: #fb8500;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">Banking System</div>
+      <nav>
+        <a href="#">Home</a>
+        <a href="transfer.html">Transfer Money</a>
+      </nav>
+    </header>
+    <section>
+      <h1>Welcome to Banking System</h1>
+      <a href="transfer.html" class="btn">Transfer Money</a>
+    </section>
+  </body>
+</html>

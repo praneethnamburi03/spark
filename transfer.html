@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bank Transfer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Bank Transfer</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Account No.</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Bank Balance</th>
+        </tr>
+      </thead>
+      <tbody id="usersTableBody">
+      </tbody>
+    </table>
+    <h2>Transfer Money</h2>
+    <form>
+      <label for="fromAccount">From Account:</label>
+      <select id="fromAccount">
+      </select>
+      <br>
+      <label for="toAccount">To Account:</label>
+      <select id="toAccount">
+      </select>
+      <br>
+      <label for="amount">Amount:</label>
+      <input type="number" id="amount" min="1" required>
+      <br>
+      <button type="button" id="transferBtn">Transfer</button>
+    </form>
+    <h2>Transaction History</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>From Account</th>
+          <th>To Account</th>
+          <th>Amount</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody id="transactionsTableBody">
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>
+<script>
+    // Get users data
+    const usersData = [
+      { accNo: "123456", name: "John Doe", email: "john.doe@google.com", balance: 5000 },
+      { accNo: "789012", name: "Jane Smith", email: "jane.smith@google.com", balance: 3000 },
+      { accNo: "345678", name: "Bob Johnson", email: "bob.johnson@google.com", balance: 2000 },
+      { accNo: "901234", name: "Alice Williams", email: "alice.williams@google.com", balance: 10000 },
+      { accNo: "567890", name: "Tom Brown", email: "tom.brown@google.com", balance: 7000 }
+    ];
+
+    // Populate users table and 'From Account'/'To Account' select options
+    const usersTableBody = document.getElementById("usersTableBody");
+    const fromAccountSelect = document.getElementById("fromAccount");
+    const toAccountSelect = document.getElementById("toAccount");
+    let usersTableHtml = "";
+    for (const user of usersData) {
+      usersTableHtml += `
+        <tr>
+          <td>${user.accNo}</td>
+          <td>${user.name}</td>
+          <td>${user.email}</td>
+          <td>${user.balance}</td>
+        </tr>
+      `;
+      const optionHtml = `<option value="${user.accNo}">${user.name} (${user.accNo})</option>`;
+      fromAccountSelect.insertAdjacentHTML("beforeend", optionHtml);
+      toAccountSelect.insertAdjacentHTML("beforeend", optionHtml);
+    }
+    usersTableBody.innerHTML = usersTableHtml;
+
+    // Transfer money
+    const transferBtn = document.getElementById("transferBtn");
+    transferBtn.addEventListener("click", () => {
+      const fromAccount = fromAccountSelect.value;
+      const toAccount = toAccountSelect.value;
+      const amount = Number(document.getElementById("amount").value);
+      if (fromAccount === toAccount) {
+        alert("Please select different accounts for the transfer.");
+        return;
+      }
+      const fromUser = usersData.find(user => user.accNo === fromAccount);
+      const toUser = usersData.find(user => user.accNo === toAccount);
+      if (amount > fromUser.balance) {
+        alert("Insufficient balance in the account for the transfer.");
+        return;
+      }
+      fromUser.balance -= amount;
+      toUser.balance += amount;
+      // Update users table and transaction history
+      const fromUserRow = usersTableBody.querySelector(`tr:nth-child(${usersData.indexOf(fromUser) + 1})`);
+      const toUserRow = usersTableBody.querySelector(`tr:nth-child(${usersData.indexOf(toUser) + 1})`);
+      fromUserRow.querySelector("td:last-child").textContent = fromUser.balance;
+      toUserRow.querySelector("td:last-child").textContent = toUser.balance;
+      const transactionsTableBody = document.getElementById("transactionsTableBody");
+      const transactionHtml = `
+        <tr>
+          <td>${fromUser.accNo}</td>
+          <td>${toUser.accNo}</td>
+          <td>${amount}</td>
+          <td>${new Date().toLocaleString()}</td>
+        </tr>
+      `;
+      transactionsTableBody.insertAdjacentHTML("afterbegin", transactionHtml);
+      alert("Transaction successful.");
+    });
+</script>
